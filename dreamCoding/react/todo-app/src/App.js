@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TodoList from "./components/TodoList/TodoList";
 import TodoInput from "./components/TodoInput/TodoInput";
 import TodoHeader from "./components/TodoHeader/TodoHeader";
@@ -8,6 +8,9 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState("all");
 
+  const loadLocalStorage = () => {
+    return JSON.parse(localStorage.getItem("todos"));
+  };
   const saveLocalStorage = (todos) => {
     localStorage.setItem("todos", JSON.stringify(todos));
   };
@@ -23,6 +26,17 @@ function App() {
       )
     );
   };
+
+  const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      setTodos(loadLocalStorage());
+    } else {
+      saveLocalStorage(todos);
+    }
+  }, [todos]);
 
   const removeTodo = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
