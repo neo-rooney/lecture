@@ -1,16 +1,13 @@
 .container {
-  position: relative;
   background: burlywood;
   width: 100%;
   height: 100vh;
 }
 
 .pointer {
-  top: 0;
-  left: 0;
-  position: absolute;
   width: 30px;
   height: 30px;
   border-radius: 100%;
   background: red;
+  transform: translate();
 }
