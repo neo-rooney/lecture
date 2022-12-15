@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import AppTheme from "./AppTheme";
+import AppMontorsButton from "./AppMontorsButton";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AppTheme />
+    <AppMontorsButton />
   </React.StrictMode>
 );
 
