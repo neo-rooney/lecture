@@ -1,9 +1,11 @@
 import { useState } from "react";
 import TodoList from "./components/TodoList/TodoList";
 import TodoInput from "./components/TodoInput/TodoInput";
+import TodoHeader from "./components/TodoHeader/TodoHeader";
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [filter, setFilter] = useState("all");
 
   const saveLocalStorage = (todos) => {
     localStorage.setItem("todos", JSON.stringify(todos));
@@ -25,9 +27,17 @@ function App() {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
+  const filterTodos = (type) => {};
+
   return (
     <>
-      <TodoList todos={todos} onRemove={removeTodo} onUpdate={updateTodo} />
+      <TodoHeader onUpdateFilter={setFilter} />
+      <TodoList
+        todos={todos}
+        onRemove={removeTodo}
+        onUpdate={updateTodo}
+        filter={filter}
+      />
       <TodoInput addTodo={addTodo} />
     </>
   );

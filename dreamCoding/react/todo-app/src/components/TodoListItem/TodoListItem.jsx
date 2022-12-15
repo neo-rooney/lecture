@@ -13,7 +13,7 @@ const TodoListItem = ({ todo, onRemove, onUpdate }) => {
 
   return (
     <li className={style.container}>
-      <input type="checkbox" value={todo.done} onChange={handleCheck} />
+      <input type="checkbox" checked={todo.done} onChange={handleCheck} />
       <div>{todo.todo}</div>
       <RiDeleteBin6Fill onClick={handleRemove} />
     </li>
