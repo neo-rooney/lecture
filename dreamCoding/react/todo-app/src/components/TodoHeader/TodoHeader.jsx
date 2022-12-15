@@ -1,15 +1,17 @@
 import React from "react";
 import { BsFillMoonFill } from "react-icons/bs";
+import style from "./TodoHeader.module.css";
 
 const TodoHeader = ({ onUpdateFilter }) => {
   const handlerFilter = (filter) => {
     onUpdateFilter(filter);
   };
   return (
-    <div>
-      <BsFillMoonFill />
-      <div>
+    <div className={style.container}>
+      <BsFillMoonFill className={style.toggle} />
+      <div className={style.filterWrapper}>
         <button
+          className={style.filter}
           onClick={() => {
             handlerFilter("all");
           }}
@@ -17,6 +19,7 @@ const TodoHeader = ({ onUpdateFilter }) => {
           All
         </button>
         <button
+          className={style.filter}
           onClick={() => {
             handlerFilter("active");
           }}
@@ -24,6 +27,7 @@ const TodoHeader = ({ onUpdateFilter }) => {
           Active
         </button>
         <button
+          className={style.filter}
           onClick={() => {
             handlerFilter("completed");
           }}

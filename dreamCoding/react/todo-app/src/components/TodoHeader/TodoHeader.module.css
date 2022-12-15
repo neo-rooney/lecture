@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: #f6f6f6;
+  padding: 20px 16px;
+  box-sizing: border-box;
+}
+
+.toggle {
+  color: #f37906;
+  cursor: pointer;
+}
+
+.filterWrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter {
+  color: #f37906;
+  border: none;
+  background: none;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}

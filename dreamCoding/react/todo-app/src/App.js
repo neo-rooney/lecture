@@ -2,6 +2,7 @@ import { useState } from "react";
 import TodoList from "./components/TodoList/TodoList";
 import TodoInput from "./components/TodoInput/TodoInput";
 import TodoHeader from "./components/TodoHeader/TodoHeader";
+import styles from "./App.module.css";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -27,19 +28,19 @@ function App() {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
-  const filterTodos = (type) => {};
-
   return (
-    <>
-      <TodoHeader onUpdateFilter={setFilter} />
-      <TodoList
-        todos={todos}
-        onRemove={removeTodo}
-        onUpdate={updateTodo}
-        filter={filter}
-      />
-      <TodoInput addTodo={addTodo} />
-    </>
+    <div className={styles.layout}>
+      <section className={styles.section}>
+        <TodoHeader onUpdateFilter={setFilter} />
+        <TodoList
+          todos={todos}
+          onRemove={removeTodo}
+          onUpdate={updateTodo}
+          filter={filter}
+        />
+        <TodoInput addTodo={addTodo} />
+      </section>
+    </div>
   );
 }
 
