@@ -15,6 +15,21 @@ export default function AppMentor() {
       },
     ],
   });
+
+  const addMentor = () => {
+    const name = prompt("이름이 무엇인가요?");
+    const title = prompt("title이 무엇인가요?");
+    setPerson({ ...person, mentors: person.mentors.concat({ name, title }) });
+  };
+  const removeMentor = () => {
+    const name = prompt("어떤 멘토를 삭제할까요?");
+
+    setPerson({
+      ...person,
+      mentors: person.mentors.filter((mentor) => mentor.name !== name),
+    });
+  };
+
   return (
     <div>
       <h1>
@@ -40,6 +55,8 @@ export default function AppMentor() {
       >
         멘토의 이름을 바꾸기
       </button>
+      <button onClick={addMentor}>멘토 추가하기</button>
+      <button onClick={removeMentor}>멘토 삭제하기</button>
     </div>
   );
 }
