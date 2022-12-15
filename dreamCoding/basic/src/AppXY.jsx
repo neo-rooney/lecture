@@ -3,20 +3,18 @@ import "./AppXY.css";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
 
   return (
     <div
       className="container"
       onPointerMove={(e) => {
-        setX(e.clientX);
-        setY(e.clientY);
+        setPosition({ x: e.clientX, y: e.clientY });
       }}
     >
       <div
         className="pointer"
-        style={{ transform: `translate(${x}px, ${y}px)` }}
+        style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
       ></div>
     </div>
   );
