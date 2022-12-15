@@ -8,6 +8,8 @@
 }
 
 .section {
+  display: flex;
+  flex-direction: column;
   width: 400px;
   height: 400px;
   background: #ffffff;

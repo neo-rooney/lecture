@@ -1,11 +1,12 @@
 import React from "react";
 import TodoListItem from "../TodoListItem/TodoListItem";
+import style from "./TodoList.module.css";
 
 const List = ({ todos, onRemove, onUpdate, filter }) => {
   return (
     <>
       {filter === "all" && (
-        <ul>
+        <ul className={style.list}>
           {todos.map((todo) => (
             <TodoListItem
               todo={todo}
@@ -17,7 +18,7 @@ const List = ({ todos, onRemove, onUpdate, filter }) => {
         </ul>
       )}
       {filter === "active" && (
-        <ul>
+        <ul className={style.list}>
           {todos.map(
             (todo) =>
               !todo.done && (
@@ -32,7 +33,7 @@ const List = ({ todos, onRemove, onUpdate, filter }) => {
         </ul>
       )}
       {filter === "completed" && (
-        <ul>
+        <ul className={style.list}>
           {todos.map(
             (todo) =>
               todo.done && (

@@ -13,9 +13,19 @@ const TodoListItem = ({ todo, onRemove, onUpdate }) => {
 
   return (
     <li className={style.container}>
-      <input type="checkbox" checked={todo.done} onChange={handleCheck} />
-      <div>{todo.todo}</div>
-      <RiDeleteBin6Fill onClick={handleRemove} />
+      <div className={style.left}>
+        <input
+          type="checkbox"
+          checked={todo.done}
+          onChange={handleCheck}
+          className={style.checkbox}
+        />
+        <div className={style.text}>{todo.todo}</div>
+      </div>
+
+      <div onClick={handleRemove} className={style.delete}>
+        <RiDeleteBin6Fill />
+      </div>
     </li>
   );
 };
