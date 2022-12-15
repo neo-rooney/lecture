@@ -13,13 +13,21 @@ function App() {
     setTodos(todos.concat(todo));
   };
 
+  const updateTodo = (id) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, done: !todo.done } : { ...todo }
+      )
+    );
+  };
+
   const removeTodo = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   return (
     <>
-      <TodoList todos={todos} removeTodo={removeTodo} />
+      <TodoList todos={todos} onRemove={removeTodo} onUpdate={updateTodo} />
       <TodoInput addTodo={addTodo} />
     </>
   );
