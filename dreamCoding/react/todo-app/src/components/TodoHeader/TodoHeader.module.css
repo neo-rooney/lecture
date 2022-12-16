@@ -8,8 +8,23 @@
   box-sizing: border-box;
 }
 
+.darkContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: #1c1e3c;
+  padding: 20px 16px;
+  box-sizing: border-box;
+}
+
 .toggle {
   color: #f37906;
+  cursor: pointer;
+}
+
+.darkToggle {
+  color: #ffffff;
   cursor: pointer;
 }
 

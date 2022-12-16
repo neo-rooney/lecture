@@ -7,12 +7,13 @@ import styles from "./App.module.css";
 function App() {
   const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState("all");
+  const [mode, setMode] = useState("light");
 
-  const loadLocalStorage = () => {
-    return JSON.parse(localStorage.getItem("todos"));
+  const loadLocalStorage = (name) => {
+    return JSON.parse(localStorage.getItem(name));
   };
-  const saveLocalStorage = (todos) => {
-    localStorage.setItem("todos", JSON.stringify(todos));
+  const saveLocalStorage = (name, todos) => {
+    localStorage.setItem(name, JSON.stringify(todos));
   };
 
   const addTodo = (todo) => {
@@ -32,11 +33,13 @@ function App() {
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
-      setTodos(loadLocalStorage());
+      setTodos(loadLocalStorage("todos"));
+      setMode(loadLocalStorage("mode"));
     } else {
-      saveLocalStorage(todos);
+      saveLocalStorage("todos", todos);
+      saveLocalStorage("mode", mode);
     }
-  }, [todos]);
+  }, [todos, mode]);
 
   const removeTodo = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
@@ -44,13 +47,20 @@ function App() {
 
   return (
     <div className={styles.layout}>
-      <section className={styles.section}>
-        <TodoHeader onUpdateFilter={setFilter} />
+      <section
+        className={mode === "dark" ? styles.darkSection : styles.section}
+      >
+        <TodoHeader
+          onUpdateFilter={setFilter}
+          onUpdateMode={setMode}
+          mode={mode}
+        />
         <TodoList
           todos={todos}
           onRemove={removeTodo}
           onUpdate={updateTodo}
           filter={filter}
+          mode={mode}
         />
         <TodoInput addTodo={addTodo} />
       </section>

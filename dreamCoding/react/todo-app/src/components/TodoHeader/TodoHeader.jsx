@@ -1,14 +1,31 @@
 import React from "react";
 import { BsFillMoonFill } from "react-icons/bs";
+import { BsFillSunFill } from "react-icons/bs";
 import style from "./TodoHeader.module.css";
 
-const TodoHeader = ({ onUpdateFilter }) => {
+const TodoHeader = ({ onUpdateFilter, onUpdateMode, mode }) => {
   const handlerFilter = (filter) => {
     onUpdateFilter(filter);
   };
+
+  const handleMode = () => {
+    const updateValue = mode === "dark" ? "light" : "dark";
+    onUpdateMode(updateValue);
+  };
+
   return (
-    <div className={style.container}>
-      <BsFillMoonFill className={style.toggle} />
+    <div className={mode === "dark" ? style.darkContainer : style.container}>
+      {mode === "dark" ? (
+        <BsFillSunFill
+          className={mode === "dark" ? style.darkToggle : style.toggle}
+          onClick={handleMode}
+        />
+      ) : (
+        <BsFillMoonFill
+          className={mode === "dark" ? style.darkToggle : style.toggle}
+          onClick={handleMode}
+        />
+      )}
       <div className={style.filterWrapper}>
         <button
           className={style.filter}

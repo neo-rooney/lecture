@@ -19,3 +19,16 @@
   -moz-box-shadow: 2px -1px 42px -9px rgba(0, 0, 0, 0.86);
   overflow: hidden;
 }
+
+.darkSection {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 400px;
+  background: #262843;
+  border-radius: 20px;
+  box-shadow: 2px -1px 42px -9px rgba(0, 0, 0, 0.86);
+  -webkit-box-shadow: 2px -1px 42px -9px rgba(0, 0, 0, 0.86);
+  -moz-box-shadow: 2px -1px 42px -9px rgba(0, 0, 0, 0.86);
+  overflow: hidden;
+}
