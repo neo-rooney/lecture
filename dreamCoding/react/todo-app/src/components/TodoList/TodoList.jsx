@@ -1,54 +1,48 @@
-import React from "react";
-import TodoListItem from "../TodoListItem/TodoListItem";
-import style from "./TodoList.module.css";
+import React, { useEffect, useState } from "react";
+import AddTodo from "../AddTodo/AddTodo";
+import Todo from "../Todo/Todo";
+import styles from "./TodoList.module.css";
 
-const List = ({ todos, onRemove, onUpdate, filter }) => {
+export default function TodoList({ filter }) {
+  const [todos, setTodos] = useState(fetchTodos);
+
+  const handleAdd = (todo) => setTodos([...todos, todo]);
+  const handleUpdate = (updated) =>
+    setTodos(todos.map((t) => (t.id === updated.id ? updated : t)));
+  const handleDelete = (deleted) =>
+    setTodos(todos.filter((t) => t.id !== deleted.id));
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
+  const filterd = getFilterdItem(todos, filter);
+
   return (
-    <>
-      {filter === "all" && (
-        <ul className={style.list}>
-          {todos.map((todo) => (
-            <TodoListItem
-              todo={todo}
-              key={todo.id}
-              onRemove={onRemove}
-              onUpdate={onUpdate}
-            />
-          ))}
-        </ul>
-      )}
-      {filter === "active" && (
-        <ul className={style.list}>
-          {todos.map(
-            (todo) =>
-              !todo.done && (
-                <TodoListItem
-                  todo={todo}
-                  key={todo.id}
-                  onRemove={onRemove}
-                  onUpdate={onUpdate}
-                />
-              )
-          )}
-        </ul>
-      )}
-      {filter === "completed" && (
-        <ul className={style.list}>
-          {todos.map(
-            (todo) =>
-              todo.done && (
-                <TodoListItem
-                  todo={todo}
-                  key={todo.id}
-                  onRemove={onRemove}
-                  onUpdate={onUpdate}
-                />
-              )
-          )}
-        </ul>
-      )}
-    </>
+    <section className={styles.container}>
+      <ul className={styles.list}>
+        {filterd.map((item) => (
+          <Todo
+            key={item.id}
+            todo={item}
+            onUpdate={handleUpdate}
+            onDelete={handleDelete}
+          />
+        ))}
+      </ul>
+      <AddTodo onAdd={handleAdd} />
+    </section>
   );
+}
+
+const fetchTodos = () => {
+  const todos = localStorage.getItem("todos");
+  return todos ? JSON.parse(todos) : [];
 };
 
-export default List;
+const getFilterdItem = (todos, filter) => {
+  if (filter === "all") {
+    return todos;
+  }
+  return todos.filter((item) => item.status === filter);
+};
