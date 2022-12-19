@@ -1,54 +1,18 @@
-import React from "react";
-import TodoListItem from "../TodoListItem/TodoListItem";
-import style from "./TodoList.module.css";
+import React, { useState } from "react";
 
-const List = ({ todos, onRemove, onUpdate, filter }) => {
+export default function TodoList(props) {
+  const [todos, setTodos] = useState([
+    { id: "123", text: "장보기", status: "active" },
+    { id: "124", text: "공부하기", status: "active" },
+  ]);
+
   return (
-    <>
-      {filter === "all" && (
-        <ul className={style.list}>
-          {todos.map((todo) => (
-            <TodoListItem
-              todo={todo}
-              key={todo.id}
-              onRemove={onRemove}
-              onUpdate={onUpdate}
-            />
-          ))}
-        </ul>
-      )}
-      {filter === "active" && (
-        <ul className={style.list}>
-          {todos.map(
-            (todo) =>
-              !todo.done && (
-                <TodoListItem
-                  todo={todo}
-                  key={todo.id}
-                  onRemove={onRemove}
-                  onUpdate={onUpdate}
-                />
-              )
-          )}
-        </ul>
-      )}
-      {filter === "completed" && (
-        <ul className={style.list}>
-          {todos.map(
-            (todo) =>
-              todo.done && (
-                <TodoListItem
-                  todo={todo}
-                  key={todo.id}
-                  onRemove={onRemove}
-                  onUpdate={onUpdate}
-                />
-              )
-          )}
-        </ul>
-      )}
-    </>
+    <section>
+      <ul>
+        {todos.map((item) => (
+          <li key={item.id}>{item.text}</li>
+        ))}
+      </ul>
+    </section>
   );
-};
-
-export default List;
+}
