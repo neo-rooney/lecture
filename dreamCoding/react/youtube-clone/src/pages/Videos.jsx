@@ -11,9 +11,13 @@ export default function Videos() {
     isLoading,
     error,
     data: videos,
-  } = useQuery(["videos", keyword], () => {
-    return youtube.search(keyword);
-  });
+  } = useQuery(
+    ["videos", keyword],
+    () => {
+      return youtube.search(keyword);
+    },
+    { staleTime: 1000 * 6 * 1 }
+  );
 
   return (
     <>
