@@ -1,9 +1,12 @@
 import { createContext, useContext } from "react";
-import FakeYoutube from "../api/fakeYoutube";
+import FakeYoutubeClient from "../api/fakeYoutubeClient";
+import Youtube from "../api/yotubue";
+import YouTubeClient from "../api/youtubeClient";
 
 export const YoutubeApiContext = createContext();
 
-const youtube = new FakeYoutube();
+const client = new FakeYoutubeClient(); //new YouTubeClient();
+const youtube = new Youtube(client);
 
 export function YoutubeApiProvider({ children }) {
   return (
