@@ -6,3 +6,6 @@
   - /products/new 👉 NewProduct
   - /products/:id 👉 ProductDetail
   - /carts 👉 MyCart
+- [ ] 헤더 만들기
+  - [x] 기능
+  - [ ] 스타일링
