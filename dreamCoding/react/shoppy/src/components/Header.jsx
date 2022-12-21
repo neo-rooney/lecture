@@ -5,19 +5,19 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <header className="flex justify-between items-center border-b border-zinc-200 py-3">
-      <Link className="flex items-center text-4xl" to="/">
+    <header className="flex justify-between items-center border-b border-gray-300 p-4">
+      <Link className="flex items-center text-4xl text-brand" to="/">
         <FiShoppingBag />
         <h1 className="font-semibold">Shoppy</h1>
       </Link>
-      <div className="flex items-center gap-4 font-semibold">
+      <nav className="flex items-center gap-4 font-semibold">
         <Link to="/products">Products</Link>
         <Link to="/carts">Carts</Link>
-        <Link to="/products/new">
+        <Link to="/products/new" className="text-2xl">
           <BsFillPencilFill />
         </Link>
         <button>Login</button>
-      </div>
+      </nav>
     </header>
   );
 }
