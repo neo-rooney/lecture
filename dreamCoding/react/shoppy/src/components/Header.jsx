@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <header>
-      <Link to="/">
+    <header className="flex justify-between items-center border-b border-zinc-200 py-3">
+      <Link className="flex items-center text-4xl" to="/">
         <FiShoppingBag />
-        <h1>Shoppy</h1>
+        <h1 className="font-semibold">Shoppy</h1>
       </Link>
-      <div>
+      <div className="flex items-center gap-4 font-semibold">
         <Link to="/products">Products</Link>
         <Link to="/carts">Carts</Link>
         <Link to="/products/new">
