@@ -20,8 +20,8 @@ export default function NewProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await addProduct(product);
-    console.log(result);
+    const image = await imageUpload(file);
+    addProduct(product, image);
   };
 
   return (
@@ -44,7 +44,7 @@ export default function NewProduct() {
           placeholder="제품명"
           onChange={handleChange}
           required
-          value={product?.title}
+          value={product.title || ""}
         />
         <Input
           type="number"
@@ -52,7 +52,7 @@ export default function NewProduct() {
           placeholder="가격"
           onChange={handleChange}
           required
-          value={product?.price}
+          value={product.price || ""}
         />
         <Input
           type="text"
@@ -60,7 +60,7 @@ export default function NewProduct() {
           placeholder="카테고리"
           onChange={handleChange}
           required
-          value={product?.category}
+          value={product.category || ""}
         />
         <Input
           type="text"
@@ -68,7 +68,7 @@ export default function NewProduct() {
           placeholder="제품 설명"
           onChange={handleChange}
           required
-          value={product?.description}
+          value={product.description || ""}
         />
         <Input
           type="text"
@@ -76,7 +76,7 @@ export default function NewProduct() {
           placeholder="옵션들(콤마(,)로 구분)"
           onChange={handleChange}
           required
-          value={product?.options}
+          value={product.options || ""}
         />
         <Button text="제품 등록하기" />
       </form>

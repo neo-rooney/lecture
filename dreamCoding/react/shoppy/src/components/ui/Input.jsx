@@ -6,7 +6,7 @@ export default function Input({
   placeholder,
   onChange,
   required,
-  value = "",
+  value,
 }) {
   return (
     <input

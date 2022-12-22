@@ -53,16 +53,19 @@ async function adminUser(user) {
     });
 }
 
-export async function addProduct(product) {
-  const processedOptions = product.options
+export async function addProduct(product, image) {
+  const id = uuidv4();
+
+  const options = product.options
     .replace(/ /g, "")
     .split(",")
     .filter((option) => option);
-  const processedProduct = {
-    ...product,
-    id: uuidv4(),
-    options: processedOptions,
-  };
 
-  return set(ref(database, "products"), processedProduct);
+  return set(ref(database, `products/${id}`), {
+    ...product,
+    id,
+    price: parseInt(product.price),
+    image,
+    options,
+  });
 }

@@ -1,17 +1,13 @@
-const url = "https://api.cloudinary.com/v1_1/dzcn1bpw7/image/upload";
-
 export async function imageUpload(file) {
   const formData = new FormData();
   formData.append("file", file);
-  formData.append("upload_preset", "d9edyb6z");
+  formData.append("upload_preset", process.env.REACT_APP_CLOUDINARY_PRESET);
 
-  const data = await fetch(url, {
+  const res = await fetch(process.env.REACT_APP_CLOUDINARY_URL, {
     method: "POST",
     body: formData,
   });
+  const data = await res.json();
 
-  const result = await data.text();
-  const json = JSON.parse(result);
-
-  return json.url;
+  return data.url;
 }
