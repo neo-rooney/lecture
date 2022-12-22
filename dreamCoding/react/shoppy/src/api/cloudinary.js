@@ -12,6 +12,6 @@ export async function imageUpload(file) {
 
   const result = await data.text();
   const json = JSON.parse(result);
-  console.log(json);
+
   return json.url;
 }

@@ -2,20 +2,25 @@ import React, { useState } from "react";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 import { imageUpload } from "../api/cloudinary";
+import { addProduct } from "../api/firebase";
 
 export default function NewProduct() {
-  const [form, setForm] = useState({});
+  const [product, setProduct] = useState({});
 
   const handleInput = async (e) => {
-    const { name, files } = e.target;
+    const { name, files, value } = e.target;
     if (name === "image") {
       const image = await imageUpload(files[0]);
-      setForm({ ...form, image });
+      setProduct({ ...product, image });
+    } else {
+      setProduct({ ...product, [name]: value });
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const result = await addProduct(product);
+    console.log(result);
   };
 
   return (
@@ -23,7 +28,9 @@ export default function NewProduct() {
       <h2 className="text-2xl text-center font-semibold my-3">
         새로운 제품 등록
       </h2>
-      {form?.image && <img className="w-80" src={form.image} alt="" />}
+      {product?.image && (
+        <img className="w-80 mb-4" src={product.image} alt="" />
+      )}
       <form
         className="flex flex-col gap-2 w-full"
         action="submit"
