@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
+import { imageUpload } from "../api/cloudinary";
 
 export default function NewProduct() {
-  const handleInput = (e) => {
-    const { name } = e.target;
-    console.log(name);
+  const [form, setForm] = useState({});
+
+  const handleInput = async (e) => {
+    const { name, files } = e.target;
+    if (name === "image") {
+      const image = await imageUpload(files[0]);
+      setForm({ ...form, image });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -13,10 +19,13 @@ export default function NewProduct() {
   };
 
   return (
-    <div>
-      <h2 class="text-2xl text-center font-semibold my-3">새로운 제품 등록</h2>
+    <div className="flex flex-col items-center p-10">
+      <h2 className="text-2xl text-center font-semibold my-3">
+        새로운 제품 등록
+      </h2>
+      {form?.image && <img className="w-80" src={form.image} alt="" />}
       <form
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 w-full"
         action="submit"
         onSubmit={handleSubmit}
       >
