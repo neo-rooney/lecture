@@ -7,6 +7,8 @@ import { addProduct } from "../api/firebase";
 export default function NewProduct() {
   const [product, setProduct] = useState({});
   const [file, setFile] = useState();
+  const [isUploading, setIsUploading] = useState(false);
+  const [success, setSuccess] = useState("");
 
   const handleChange = async (e) => {
     const { name, files, value } = e.target;
@@ -19,18 +21,31 @@ export default function NewProduct() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const image = await imageUpload(file);
-    addProduct(product, image);
+    try {
+      e.preventDefault();
+      setIsUploading(true);
+      const image = await imageUpload(file);
+      await addProduct(product, image);
+      setSuccess("✅ 업로드 성공");
+      setTimeout(() => {
+        setSuccess("");
+      }, 4000);
+    } catch (e) {
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   return (
-    <div className="flex flex-col items-center p-10">
-      <h2 className="text-2xl text-center font-semibold my-3">
-        새로운 제품 등록
-      </h2>
+    <div className="p-10  text-center">
+      <h2 className="text-2xl font-bold my-3">새로운 제품 등록</h2>
+      {success && <div className="mb-2">{success}</div>}
       {file && (
-        <img className="w-80 mb-4" src={URL.createObjectURL(file)} alt="" />
+        <img
+          className="w-96 mb-4 mx-auto"
+          src={URL.createObjectURL(file)}
+          alt=""
+        />
       )}
       <form
         className="flex flex-col gap-2 w-full"
@@ -78,7 +93,10 @@ export default function NewProduct() {
           required
           value={product.options || ""}
         />
-        <Button text="제품 등록하기" />
+        <Button
+          text={isUploading ? "업로드 중..." : "제품 등록하기"}
+          disabled={isUploading}
+        />
       </form>
     </div>
   );
