@@ -1,6 +1,22 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { getProducts } from "../api/firebase";
+import { useQuery } from "@tanstack/react-query";
+import Product from "./Product";
 
 export default function Products() {
-  return <div></div>;
+  const {
+    isLoading,
+    error,
+    data: products,
+  } = useQuery(["products"], getProducts);
+  return (
+    <>
+      {isLoading && <p>Loading...</p>}
+      {error && <p>Error : {error} </p>}
+      {products &&
+        products.map((product) => (
+          <Product key={product.id} product={product} />
+        ))}
+    </>
+  );
 }
