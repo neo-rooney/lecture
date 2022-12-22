@@ -6,12 +6,13 @@ import { addProduct } from "../api/firebase";
 
 export default function NewProduct() {
   const [product, setProduct] = useState({});
+  const [file, setFile] = useState();
 
-  const handleInput = async (e) => {
+  const handleChange = async (e) => {
     const { name, files, value } = e.target;
-    if (name === "image") {
-      const image = await imageUpload(files[0]);
-      setProduct({ ...product, image });
+    if (name === "file") {
+      setFile(files && files[0]);
+      return;
     } else {
       setProduct({ ...product, [name]: value });
     }
@@ -28,44 +29,54 @@ export default function NewProduct() {
       <h2 className="text-2xl text-center font-semibold my-3">
         새로운 제품 등록
       </h2>
-      {product?.image && (
-        <img className="w-80 mb-4" src={product.image} alt="" />
+      {file && (
+        <img className="w-80 mb-4" src={URL.createObjectURL(file)} alt="" />
       )}
       <form
         className="flex flex-col gap-2 w-full"
         action="submit"
         onSubmit={handleSubmit}
       >
-        <Input type="file" name="image" onChange={handleInput} />
+        <Input type="file" name="file" onChange={handleChange} required />
         <Input
           type="text"
-          name="name"
+          name="title"
           placeholder="제품명"
-          onChange={handleInput}
+          onChange={handleChange}
+          required
+          value={product?.title}
         />
         <Input
           type="number"
           name="price"
           placeholder="가격"
-          onChange={handleInput}
+          onChange={handleChange}
+          required
+          value={product?.price}
         />
         <Input
           type="text"
           name="category"
           placeholder="카테고리"
-          onChange={handleInput}
+          onChange={handleChange}
+          required
+          value={product?.category}
         />
         <Input
           type="text"
           name="description"
           placeholder="제품 설명"
-          onChange={handleInput}
+          onChange={handleChange}
+          required
+          value={product?.description}
         />
         <Input
           type="text"
           name="options"
           placeholder="옵션들(콤마(,)로 구분)"
-          onChange={handleInput}
+          onChange={handleChange}
+          required
+          value={product?.options}
         />
         <Button text="제품 등록하기" />
       </form>
