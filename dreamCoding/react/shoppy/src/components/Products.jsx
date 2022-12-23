@@ -14,7 +14,7 @@ export default function Products() {
       {isLoading && <p>Loading...</p>}
       {error && <p>Error : {error} </p>}
       {products && (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+        <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {products.map((product) => (
             <Product key={product.id} product={product} />
           ))}
