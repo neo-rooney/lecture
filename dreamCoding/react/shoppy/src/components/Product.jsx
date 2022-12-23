@@ -1,9 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Product({ product }) {
   const { id, title, price, image, category } = product;
+
+  const navigate = useNavigate();
+
   return (
-    <li className="shadow-md rounded-lg overflow-hidden cursor-pointer transition ease-in hover:scale-105">
+    <li
+      className="shadow-md rounded-lg overflow-hidden cursor-pointer transition ease-in hover:scale-105"
+      onClick={() => {
+        navigate(`/products/${id}`, { state: { product } });
+      }}
+    >
       <img className="w-full" src={image} alt={title} />
       <section className="p-2">
         <div className="flex justify-between">
