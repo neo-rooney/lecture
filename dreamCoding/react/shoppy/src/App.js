@@ -10,8 +10,8 @@ const queryClient = new QueryClient();
 export default function App() {
   return (
     <AuthContextProvider>
-      <Header />
       <QueryClientProvider client={queryClient}>
+        <Header />
         <Outlet />
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
