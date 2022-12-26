@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 import { imageUpload } from "../api/cloudinary";
-import { addProduct } from "../api/firebase";
+import useProducts from "../hooks/useProducts";
 
 export default function NewProduct() {
   const [product, setProduct] = useState({});
   const [file, setFile] = useState();
   const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState("");
+
+  const { addNewProduct } = useProducts();
 
   const handleChange = async (e) => {
     const { name, files, value } = e.target;
@@ -25,11 +27,17 @@ export default function NewProduct() {
       e.preventDefault();
       setIsUploading(true);
       const image = await imageUpload(file);
-      await addProduct(product, image);
-      setSuccess("✅ 업로드 성공");
-      setTimeout(() => {
-        setSuccess("");
-      }, 4000);
+      addNewProduct.mutate(
+        { product, image },
+        {
+          onSuccess: () => {
+            setSuccess("✅ 업로드 성공");
+            setTimeout(() => {
+              setSuccess("");
+            }, 4000);
+          },
+        }
+      );
     } catch (e) {
     } finally {
       setIsUploading(false);
